@@ -6,13 +6,14 @@ Discord bot for minecraft server utility without any plugin/mods
 MODやプラグインなどに一切依存せず、バニラサーバーや純粋なForge/NeoForgeサーバーでも利用可能な、Discord Botによるサーバーユーティリティです。  
 現在、下記の機能があります。
 - Discordスラッシュコマンドにより、各自で行うことができるホワイトリスト追加
- - ホワイトリスト追加者の記録(自身で追加することを想定し、MinecraftネームとDiscord名の紐づけを想定)
- - 他者が追加したメンバーや、botのログにない(コンソール追加など)追加メンバーの削除拒否
- - ホワイトリスト一覧
+  - ホワイトリスト追加者の記録(自身で追加することを想定し、MinecraftネームとDiscord名の紐づけを想定)
+  - 他者が追加したメンバーや、botのログにない(コンソール追加など)追加メンバーの削除拒否
+  - ホワイトリスト一覧
 - 現在オンラインのプレイヤー一覧
 - DiscordチャンネルとMinecraft内の相互チャット
- - Yahoo!のAPIを利用し、Minecraft内のローマ字チャットを自動変換
+  - Yahoo!のAPIを利用し、Minecraft内のローマ字チャットを自動変換
 - overload警告を読み取り、接続チャンネルに遅延警告を送信
+- `settings.yml`による、Botが発する全メッセージの任意設定
 
 ## 使用方法 (日本語)
 ### 0-1. ダウンロード
@@ -57,6 +58,17 @@ This will generate `whitelist_log.json` and `settings.yml`.
 Open `settings.yml` and edit it as needed.   
 ### 5. (Verify) Log file permissions
 If you're running the bot as a different user than the Minecraft server (e.g., via systemd), ensure the bot has read (`r`) permission for the `server/logs/latest.log` file.  
+
+## 設定ファイルについて
+本プログラムには`.env`と`settings.yml`の2つの設定ファイルがあります。  
+`.env`は環境変数ファイルであり、Discord及びYahoo!のAPIキーや、RCONサーバーのIP, Port, Password、接続するDiscordチャンネルのID、監視するログファイルのパスを指定します。  
+`settings.yml`は全般設定ファイルであり、Botのコマンドエイリアスや、それに付随する説明、Botにより投稿されるメッセージ、転送されるチャットのフォーマット、監視するログのための正規表現などを編集できます。  
+重要: `default_settings.yml`は`settings.yml`に異常がある場合に正常な設定値を持ってくるファイルですので、編集しないでください。  
+
+This program uses two configuration files: `.env` and `settings.yml`.
+The `.env` is the environment variable file. Here you will specify your Discord and Yahoo! API keys, the RCON server's IP, port, and password, the ID of the Discord channel you want to connect to, and the path to the log file that will be monitored.  
+The `settings.yml` is the general settings file. In this file, you can customize the bot's command aliases, their descriptions, the messages the bot posts, the format for forwarded chat messages, and the regular expressions used for monitoring the log file.  
+Important: Do not edit `default_settings.yml`. This file is used to restore proper settings if `settings.yml` becomes corrupted.  
 
 ## 利用技術
 Discord Bot([Py-cord](https://pycord.dev/))  
