@@ -1,0 +1,6 @@
+py-cord
+python-dotenv
+rcon
+watchdog
+requests
+ruamel.yaml

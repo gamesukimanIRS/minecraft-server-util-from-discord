@@ -1,0 +1,164 @@
+# ===============================================
+# Settings for Miecraft Server Utility From Discord
+# ===============================================
+# 編集はdefault_settings.ymlでなく、settings.ymlに行ってください。
+# Edit settings.yml, instead of default_settings.yml.
+
+# Discordスラッシュコマンドの定義
+# Define of Slash commands in Discord
+commands:
+
+  # ホワイトリスト whitelist
+  ws:
+    group:
+      name: "atm"
+      description: "ATM10鯖ホワイトリスト管理"
+    subcommands:
+      add:
+        name: "ad"
+        description: "ホワイトリスト追加"
+      rem:
+        name: "rm"
+        description: "ホワイトリスト削除(追加者のみ)"
+      list:
+        name: "ls"
+        description: "プレイヤー(ホワイトリスト)一覧"
+
+  # オンラインプレイヤー list of online players
+  ls:
+    name: "ls"
+    description: "オンライン一覧"
+
+  # 引数の説明 arguments description
+  options:
+    player_name: "プレイヤー名"
+
+# Discordに送られるメッセージのフォーマット
+# Format for message send to Discord
+discord:
+
+  # whitelist add
+  add_success: "Sudah! `{player_name}`を追加しました"
+  add_already_exists: "Sudah dilakukan~ `{player_name}`は既に`{adder_name}`によって追加されています"
+
+  # whitelist remove
+  remove_success: "Sudah! `{player_name}`を削除しました"
+  remove_not_on_list: "Ini benar? `{player_name}`はホワイトリストにありません"
+  remove_permission_denied: "Kamu tidak bisa~ `{player_name}`は`{adder_name}`によって追加されたため、あなたは削除できません"
+
+  # both
+  no_such_player: "Tidak ada... `{player_name}`は存在しません"
+
+  # ls, whitelist ls
+  ## embedテキスト Embed Text
+  list_title: "プレイヤーリスト ({count}人)"
+  list_no_players: "登録されたプレイヤーはありません"
+  online_title: "オンラインプレイヤー ({count}人)"
+  online_no_players: "現在、誰もサーバーにいません。"
+  ## embedフッター Embed Fotter
+  embed_footers:
+    whitelist: "ATM10鯖ホワイトリスト - IRS8号"
+    online_players: "ATM10鯖オンライン - IRS8号"
+
+  # 追加者表記(追加主が見つからない場合)
+  # Adder format (when adder is not available)
+  adders:
+    adder_admin: "管理者"
+    adder_unknown: "(不明なユーザー)"
+    list_adder_na: "N/A" #リスト時のadminとunknownの表記
+
+  # embedとともに送信されるテキスト
+  # Message sent along with the Embed.
+  online_list_header: "Sekarang siapa saja ada di sini?"
+  whitelist_list_header: "Ini~"
+
+  # chat
+  chat_romaji_converted: "<{player_name}> {converted_text} ({original_message})"
+  chat_normal: "<{player_name}> {message}"
+  
+  # info
+  server_lag: "[サーバー負荷情報] `{ms}ms`または`{ticks}`tick飛びました"
+  player_joined: "**{player_name}** がサーバーに参加しました。"
+  player_left: "**{player_name}** がサーバーから退出しました。"
+  
+  # eror
+  error_generic: "Tidak bisa... コマンドを実行中にエラーが発生しました"
+  error_white_list_fetch_failed: "Tidak bisa... リストの取得中にエラーが発生しました"
+  error_online_list_fetch_failed: "Tidak bisa... オンラインプレイヤーリストの取得中にエラーが発生しました"
+  error_rcon_failed: "RCONへの接続、またはコマンドの送信に失敗しました。"
+
+# サーバーに送られるメッセージ
+# Format for message send to Server
+server:
+  to_server_chat_format: "[Discord] <{nickname}> {content}"
+  to_server_chat_with_kanakanji: # かな漢字変換したもの
+    enable: true
+    format: "{converted_text}" # [Rcon] {converted_text}
+
+
+# コンソールログ表記 Console log format
+console:
+
+  # settings.yml
+  config_load_error: "FATAL: A command definition is missing in formats.yaml. Key not found: {key}"
+  config_load_failed: "FATAL: Error loading config files: {error}."
+  default_config_copied: "'{user_config}' not found. Copied from '{default_config}'."
+  default_config_missing: "FATAL: Default config file '{default_config}' not found."
+
+  # .env
+  env_missing: "FATAL: Required settings are missing in the .env file."
+  yahoo_appid_missing: "YAHOO_APPID が .env にありません"
+
+  # サーバーログ Server log
+  log_dir_not_found: "Log directory not found: {directory}"
+  observer_start_failed: "Failed to start log observer: {error}"
+  observer_started: "Watching for log file changes in: {directory}"
+
+  # Discord Bot
+  bot_login: "Logged in as {user}"
+  
+  # Rcon
+  rcon_command_sent: "RCON command sent: {command}"
+  rcon_executor: " (Executor: {executor})"
+  rcon_connection_error: "RCON connection or command execution error: {error}"
+  unexpected_rcon_response: "Unexpected RCON response: {response}"
+  server_response: "Server response for '{command}': {response}"
+
+  # Whitelist同期 whiteist syncing
+  sync_started: "Syncing whitelist with server..."
+  sync_unlogged_player: "Found unlogged player '{player}', adding as admin."
+  sync_stale_player: "Removed '{player}' from log, as it's not on the server whitelist."
+  sync_error: "Error during whitelist sync:"
+
+  # whitelist/list command
+  list_fetch_started: "Fetching whitelist for list command..."
+  online_list_fetch_started: "Fetching online player list..."
+
+  # whitelist_log.json and Yahoo API
+  log_processing_error: "Error processing log file: {error}"
+  yahoo_request_failed: "Yahoo JLP API request failed: {error}"
+  yahoo_parse_failed: "Failed to parse Yahoo JLP API response: {error}"
+  
+  # Discord/サーバー宛送信関連 Send to Discord/Server
+  discord_send_failed: "Failed to send message to Discord: {error}"
+  server_send_failed: "Failed to send message to Server (RCON)"
+
+# その他設定 Other Settings
+settings:
+  # ログ抜き出し設定 Settings for log watching
+  # NeoForge用ですので、ログのフォーマットが異なるサーバーで用いる際は適切な正規表現等に修正してください。
+  # This is for NeoForge. Adjust regular expressions (etc.) for other server log formats.
+  regex_patterns:
+    chat: '\[Server thread/INFO\].*?: <(.*?)> (.*)'
+    lag: '\[Server thread/WARN\].*?: Can''t keep up!.*?Running (.*?)ms or (.*?) ticks behind'
+    join: '\[Server thread/INFO\].*?: (.*?) joined the game'
+    leave: '\[Server thread/INFO\].*?: (.*?) left the game'
+    online_list: ':\s*(.*)'
+    whitelist_list: ':\s*(.*)'
+    add_success: "Added (.*?) to the whitelist"
+    remove_success: "Removed (.*?) from the whitelist"
+
+  non_regex_patterns:
+    already_whitelisted: "Player is already whitelisted"
+    not_whitelisted: "Player is not whitelisted"
+    player_not_exist: "That player does not exist"
