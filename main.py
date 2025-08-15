@@ -340,7 +340,8 @@ async def on_message(message: discord.Message):
     if not message.content: return
 
     nickname, content = message.author.display_name, message.clean_content
-    messageformat = MESSAGES['server']['to_server_chat_format'].format(nickname=nickname, content=content)
+    safe_content = re.sub(r'(@)([aers])(?=\S)', r'\1.\2', content)
+    messageformat = MESSAGES['server']['to_server_chat_format'].format(nickname=nickname, content=safe_content)
 
     if not send_command_to_server(f"say {messageformat}"):
         print(MESSAGES['console']['server_send_failed'])
